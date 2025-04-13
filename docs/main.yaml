@@ -1,0 +1,150 @@
+openapi: '3.1.1'
+info:
+  title: Consultancy business API
+  version: '1.0'
+  description: Consultancy business API for managing clients, consultants, sessions, invoices, and reviews of a consultancy.
+
+servers:
+  - url: https://{url}
+    variables:
+      url:
+       default: https://jubilant-barnacle-5gxgw9wv94973pp7v-3001.app.github.dev/
+  
+paths:
+  /v1/clients/list:
+    get:
+      description: List all clients
+      responses:
+        '200':
+          description: OK
+
+  /v1/clients/get:
+    get:
+      description: Get a specific client
+      parameters:
+        - name: id
+          in: query
+          description: ID of the client
+          schema:
+            type: number
+      responses:
+        '200':
+          description: OK
+
+  /v1/clients/create:
+    post:
+      description: Add a new client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                phone_number:
+                  type: string
+                address:
+                  type: string
+      responses:
+        '200':
+          description: OK
+
+  /v1/consultants/list:
+    get:
+      description: List all consultants
+      responses:
+        '200':
+          description: OK
+
+  /v1/consultants/get:
+    get:
+      description: Get a specific consultant
+      parameters:
+        - name: id
+          in: query
+          description: ID of the consultant
+          schema:
+            type: number
+      responses:
+        '200':
+          description: OK
+  
+  /v1/sessions/list:
+    get:
+      description: List all consultation sessions
+      responses:
+        '200':
+          description: OK
+
+  /v1/sessions/get:
+    get:
+      description: Get a specific consultation session
+      parameters:
+        - name: id
+          in: query
+          description: ID of the client
+          schema:
+            type: number
+      responses:
+        '200':
+          description: OK
+
+  /v1/sessions/create:
+    post:
+      description: Add a new consultation session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: number
+                consultant_id:
+                  type: number
+                session_date:
+                  type: string
+                  format: date
+                session_notes:
+                  type: string
+      responses:
+        '200':
+          description: OK
+  
+  /v1/reviews/list:
+    get:
+      description: List all reviews
+      responses:
+        '200':
+          description: OK
+
+  /v1/reviews/create:
+    post:
+      description: Add a new review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: number
+                consultant_id:
+                  type: number
+                rating:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                comment:
+                  type: string
+      responses:
+        '200':
+          description: OK
